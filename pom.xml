@@ -44,6 +44,24 @@
 		<outputDirectory>war/WEB-INF/classes</outputDirectory>
 		<plugins>
 			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.0.2</version>
+				<configuration>
+					<source>1.6</source>
+					<target>1.6</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>2.0.2</version>
+				<configuration>
+					<warSourceDirectory>war</warSourceDirectory>
+					<webXml>src/main/webapp/WEB-INF/web.xml</webXml>
+				</configuration>
+			</plugin>
+			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>gwt-maven-plugin</artifactId>
 				<version>1.2-SNAPSHOT</version>
@@ -55,27 +73,41 @@
 					<servicePattern>**/gwt/**/*Service.java</servicePattern>
 					<!-- Change that to your gwt module -->
 					<module>org.test.gwt.Gwt2test</module>
+<!--					<resourceBundle>org.test.gwt.Bundle</resourceBundle>-->
 					<!-- welcome page -->
 					<runTarget>Gwt2test.html</runTarget>
+					
+					<!-- remove that for production -->
+					<draftCompile>true</draftCompile>
 				</configuration>
 				<executions>
 					<execution>
 						<goals>
 							<goal>compile</goal>
 							<goal>generateAsync</goal>
+<!--							<goal>i18n</goal>-->
 							<!-- gwt:* goals to be executed during build -->
 						</goals>
 					</execution>
 				</executions>
 			</plugin>
 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-war-plugin</artifactId>
-				<version>2.0.2</version>
-				<configuration>
-					<warSourceDirectory>war</warSourceDirectory>
-					<webXml>src/main/webapp/WEB-INF/web.xml</webXml>
-				</configuration>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>build-helper-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>add-source</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>add-source</goal>
+						</goals>
+						<configuration>
+							<sources>
+								<source>${basedir}/target/generated-sources/gwt</source>
+							</sources>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>

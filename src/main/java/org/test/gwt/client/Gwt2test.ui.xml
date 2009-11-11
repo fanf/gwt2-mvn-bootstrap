@@ -1,18 +1,38 @@
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
-	xmlns:g='urn:import:com.google.gwt.user.client.ui'>
+	xmlns:g='urn:import:com.google.gwt.user.client.ui' 
+	ui:defaultLocale="en"
+	ui:generateKeys="com.google.gwt.i18n.rebind.keygen.MD5KeyGenerator"
+	ui:generateFormat="com.google.gwt.i18n.rebind.format.PropertiesFormat"
+	ui:generateLocales="default,fr">
+
+	<!-- import style from the main css -->
+	<ui:style src="Gwt2test.css" />
+	<!-- 
+	<ui:style type='com.my.app.MyFoo.MyStyle'>
+	=> the "type" allows to use the style in the java part, with:
+	@UiField MyStyle style; 
+	......
+	 -->
+	
+	<!-- define some extra styles inline -->
+	<ui:style field="privateStyle">
+		.classForTd {
+			font-weight:bold;
+		}
+	</ui:style>
 
 	<g:HTMLPanel>
-		<h1>Web Application Starter Project</h1>
+		<h1><ui:msg description="Main title of the page">Web Application Starter Project</ui:msg></h1>
 		<table align="center">
 			<tr>
-				<td colspan="2" style="font-weight:bold;">Please enter your name:</td>
+				<td colspan="2" class="{privateStyle.classForTd}">Please enter <b>your</b> name:</td>
 			</tr>
 			<tr>
 				<td>
-					<g:TextBox ui:field="nameField" text="Plop plop" />
+					<g:TextBox ui:field="nameField">Enter your name</g:TextBox>
 				</td>
 				<td>
-					<g:Button ui:field="sendButton" text="Send" />
+					<g:Button ui:field="sendButton" addStyleNames="{sendButton}">Send</g:Button>
 				</td>
 			</tr>
 		</table>

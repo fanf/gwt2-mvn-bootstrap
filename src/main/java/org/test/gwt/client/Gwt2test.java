@@ -62,6 +62,7 @@ public class Gwt2test implements EntryPoint {
 		
 		// Create the popup dialog box
 		final Button closeButton = new Button();
+		closeButton.getElement().setId("closeButton");
 		final DialogBox dialogBox = new DialogBox();
 		final Label textToServerLabel = new Label();
 		final HTML serverResponseLabel = new HTML();
