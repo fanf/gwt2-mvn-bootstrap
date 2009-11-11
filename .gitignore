@@ -1,0 +1,11 @@
+target*
+.project*
+.classpath*
+.settings*
+.scala_dependencies*
+*logback.xml
+#gwt specific
+war/WEB-INF/lib/
+war/WEB-INF/classes/
+war/gwt2test/
+

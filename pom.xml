@@ -1,0 +1,153 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>org.test</groupId>
+	<artifactId>gwt2test</artifactId>
+	<packaging>war</packaging>
+	<version>0.0.1-SNAPSHOT</version>
+
+
+	<properties>
+		<!-- UTF-8 for everyone -->
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<!-- Other general properties -->
+		<slf4j-version>1.5.8</slf4j-version>
+		<logback-version>0.9.17</logback-version>
+		<gwt-version>2.0.0-ms2</gwt-version>
+		<google.webtoolkit.home>/home/farmand/java/gwt2</google.webtoolkit.home>
+	</properties>
+
+	<description>
+		Test project with GWT 2 and i18n
+	</description>
+
+	<repositories>
+		<repository>
+			<id>no-commons-logging</id>
+			<name>No-commons-logging Maven Repository</name>
+			<layout>default</layout>
+			<url>http://no-commons-logging.zapto.org/mvn2</url>
+			<snapshots><enabled>false</enabled></snapshots>
+		</repository>
+	</repositories>
+
+	<pluginRepositories>
+		<pluginRepository>
+			<id>codehaus.snapshots</id>
+			<name>Codehaus snapshot repository</name>
+			<url>http://snapshots.repository.codehaus.org</url>
+			<snapshots><enabled>true</enabled></snapshots>
+		</pluginRepository>
+	</pluginRepositories>
+
+	<build>
+		<outputDirectory>war/WEB-INF/classes</outputDirectory>
+		<plugins>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>gwt-maven-plugin</artifactId>
+				<version>1.2-SNAPSHOT</version>
+				<configuration>
+					<gwtHome>${google.webtoolkit.home}</gwtHome>
+					<disableCastChecking>true</disableCastChecking>
+					<disableClassMetadata>true</disableClassMetadata>
+					<!-- where to look for service whose Async version have to be generated -->
+					<servicePattern>**/gwt/**/*Service.java</servicePattern>
+					<!-- Change that to your gwt module -->
+					<module>org.test.gwt.Gwt2test</module>
+					<!-- welcome page -->
+					<runTarget>Gwt2test.html</runTarget>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>compile</goal>
+							<goal>generateAsync</goal>
+							<!-- gwt:* goals to be executed during build -->
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>2.0.2</version>
+				<configuration>
+					<warSourceDirectory>war</warSourceDirectory>
+					<webXml>src/main/webapp/WEB-INF/web.xml</webXml>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+	<dependencies>
+		<dependency>
+			<groupId>joda-time</groupId>
+			<artifactId>joda-time</artifactId>
+			<version>1.6</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.google.gwt</groupId>
+			<artifactId>gwt-servlet</artifactId>
+			<version>${gwt-version}</version>
+			<scope>system</scope>
+			<systemPath>${google.webtoolkit.home}/gwt-servlet.jar</systemPath>
+		</dependency>
+		<dependency>
+			<groupId>com.google.gwt</groupId>
+			<artifactId>gwt-user</artifactId>
+			<version>${gwt-version}</version>
+			<scope>system</scope>
+			<systemPath>${google.webtoolkit.home}/gwt-user.jar</systemPath>
+		</dependency>
+
+
+		<!--  test -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.7</version>
+			<scope>test</scope>
+		</dependency>
+
+		<!--
+			All the following is related to our will to NOT use Commong-logging
+		-->
+		<!-- use no-commons-logging -->
+		<dependency>
+			<groupId>commons-logging</groupId>
+			<artifactId>commons-logging</artifactId>
+			<version>99.0-does-not-exist</version>
+		</dependency>
+		<!-- no-commons-logging-api, if you need it -->
+		<dependency>
+			<groupId>commons-logging</groupId>
+			<artifactId>commons-logging-api</artifactId>
+			<version>99.0-does-not-exist</version>
+		</dependency>
+		<!-- the slf4j commons-logging replacement -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>jcl-over-slf4j</artifactId>
+			<version>${slf4j-version}</version>
+		</dependency>
+		<!-- the other slf4j jars -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>${slf4j-version}</version>
+		</dependency>
+		<!-- using slf4j native backend -->
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-core</artifactId>
+			<version>${logback-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+			<version>${logback-version}</version>
+		</dependency>
+	</dependencies>
+</project>
