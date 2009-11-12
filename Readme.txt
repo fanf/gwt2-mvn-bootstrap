@@ -1,5 +1,15 @@
 Starting example of GWT 2 with maven, UI binder and i18n.
 
+
+Author - Licence
+----------------
+Francois Armand - http://fanf42.blogspot.com
+
+All resources under my copyrigth are published under the Apache v2, 
+use it and enhance it - it would be great to be able to have
+a "5 minutes to have a GWT2 with i18n project running".
+
+
 Install
 =======
 Get the source:
@@ -43,8 +53,24 @@ Testing in dev mode
 % mvn gwt:run
 
 
+Testing i18n
+------------
+
+There is an example of i18n with a French translation.
+To know what are the md5 keys of the property file, just run
+% mvn gwt:compile
+
+The generated properties files will be in target/extra/gwt2test
+
+To test with the French local, add "&locale=fr" at the end of the site url, 
+for example :
+http://localhost:8888/Gwt2test.html?gwt.hosted=127.0.0.1:9997&locale=fr
+
 Adding a new language
 ---------------------
+
+TODO
+
 
 Interesting resources
 =====================
